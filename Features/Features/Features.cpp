@@ -10,7 +10,7 @@ using namespace DuiLib;
 
 CMainWindow theMain;
 
-BOOL InitApp();
+BOOL InitApp(int nCmdShow);
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
@@ -20,7 +20,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
-    InitApp();
+    InitApp(nCmdShow);
     
 
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_FEATURES));
@@ -40,7 +40,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     return (int) msg.wParam;
 }
 
-BOOL InitApp() {
+BOOL InitApp(int nCmdShow) {
     WCHAR buf[MAX_PATH] = { 0 };
     ::GetModuleFileName(NULL, buf, MAX_PATH);
     std::wstring path = buf;
@@ -63,7 +63,8 @@ BOOL InitApp() {
     int main_width = rect.right - rect.left;
     int x = (screen_width - main_width) / 2;
     int y = (screen_height - main_height) / 2;
-    ::SetWindowPos(hWnd, NULL, x, y, 0, 0, SWP_NOSIZE | SWP_NOACTIVATE | SWP_SHOWWINDOW);
+    ::SetWindowPos(hWnd, NULL, x, y, 0, 0, SWP_NOSIZE);
+    ::ShowWindow(hWnd, nCmdShow);
     UpdateWindow(hWnd);
 
     return TRUE;

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<Window size="1000,600">
+<?xml version="1.0" encoding="utf-8"?>
+<Window size="1000,600" caption="0,0,0,0">
     <Font id="0" name="微软雅黑" size="16" />
     <Font id="1" name="微软雅黑" size="18" italic="true"/>
     <VerticalLayout bkcolor="#FF999999">

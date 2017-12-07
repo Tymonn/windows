@@ -9,7 +9,7 @@ public:
     ~CMainWindow();
 
     LRESULT OnCreate(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &handled);
-
+    LRESULT OnNcHitTest(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &handled);
 protected:
     LPCTSTR GetWindowClassName() const override;
     LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam) override;
@@ -20,5 +20,6 @@ private:
 
     CPaintManagerUI pntm_;
     CButtonUI *close_ = nullptr;
+    CHorizontalLayoutUI *caption_ = nullptr;
 };
 
