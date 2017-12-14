@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "MainWindow.h"
+#include "define\msg_define.h"
 
 CMainWindow::CMainWindow()
 {
@@ -7,6 +8,9 @@ CMainWindow::CMainWindow()
 
 
 CMainWindow::~CMainWindow() {
+    for (auto sub : subs_) {
+        delete sub;
+    }
 }
 
 LPCTSTR CMainWindow::GetWindowClassName() const {
@@ -24,6 +28,37 @@ LRESULT CMainWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam) {
             break;
         case WM_NCHITTEST: {
             result = OnNcHitTest(uMsg, wParam, lParam, handled);
+        }
+            break;
+        case WM_RBUTTONUP: {
+            POINT pt = { 0 };
+            ::GetCursorPos(&pt);
+            RECT rect = { 0 };
+            ::GetWindowRect(m_hWnd, &rect);
+            pt.x -= rect.left;
+            pt.y -= rect.top;
+
+            if (!::IsWindow(menu_.GetHWND())) {
+                menu_.Create(m_hWnd, L"Feature Menu", WS_CHILD, 0);    
+                ::SetWindowPos(menu_.GetHWND(), NULL, pt.x, pt.y, 0, 0, SWP_NOSIZE | SWP_SHOWWINDOW);
+            }
+            else {
+                ::SetWindowPos(menu_.GetHWND(), NULL, pt.x, pt.y, 0, 0, SWP_NOSIZE | SWP_SHOWWINDOW);
+            }
+        }
+            break;
+        case WM_CREATE_SUBWND: {
+            POINT pt = { 0 };
+            ::GetCursorPos(&pt);
+            RECT rect = { 0 };
+            ::GetWindowRect(m_hWnd, &rect);
+            pt.x -= rect.left;
+            pt.y -= rect.top;
+
+            CSubWindow *sub = new CSubWindow;
+            subs_.push_back(sub);
+            sub->Create(m_hWnd, L"Feature Sub", WS_CHILD , 0);
+            ::SetWindowPos(sub->GetHWND(), NULL, pt.x, pt.y, 0, 0, SWP_NOSIZE | SWP_SHOWWINDOW);
         }
             break;
         default:
@@ -50,7 +85,7 @@ LRESULT CMainWindow::OnCreate(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &han
     if (root) {
         pntm_.AttachDialog(root);
         FindSubCtrls();
-    }    
+    }
 
     return 0;
 }
