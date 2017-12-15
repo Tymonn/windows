@@ -151,6 +151,7 @@
   <ItemGroup>
     <ClInclude Include="define\msg_define.h" />
     <ClInclude Include="Features.h" />
+    <ClInclude Include="LayeredWindow.h" />
     <ClInclude Include="MainWindow.h" />
     <ClInclude Include="menu\MenuUI.h" />
     <ClInclude Include="Resource.h" />
@@ -160,6 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Features.cpp" />
+    <ClCompile Include="LayeredWindow.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="menu\MenuUI.cpp" />
     <ClCompile Include="stdafx.cpp">

@@ -56,6 +56,9 @@ void CMenuUI::Notify(TNotifyUI& msg) {
         else if (name == L"create_sub") {
             ::PostMessage(::GetParent(m_hWnd), WM_CREATE_SUBWND, 0, 0);
         }
+        else if (name == L"create_transparent") {
+            ::PostMessage(::GetParent(m_hWnd), WM_CREATE_TRANSPARENT, 0, 0);
+        }
 
         ::ShowWindow(m_hWnd, SW_HIDE);
     }

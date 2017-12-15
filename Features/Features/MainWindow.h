@@ -2,6 +2,7 @@
 #include "../../Dui/UIlib.h"
 #include "menu/MenuUI.h"
 #include "SubWindow.h"
+#include "LayeredWindow.h"
 using namespace DuiLib;
 
 class CMainWindow : public CWindowWnd
@@ -25,5 +26,6 @@ private:
     CButtonUI *close_ = nullptr;
     CHorizontalLayoutUI *caption_ = nullptr;
     std::vector<CSubWindow*> subs_;
+    std::vector<CLayeredWindow*> layers_;
 };
 

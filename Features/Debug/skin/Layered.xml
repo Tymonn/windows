@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Window size="1000,600" caption="0,0,0,0">
+<Window size="400,300" caption="0,0,0,0">
     <Font id="0" name="微软雅黑" size="16" />
     <Font id="1" name="微软雅黑" size="18" italic="true"/>
-    <VerticalLayout bkcolor="#FF999999">
+    <VerticalLayout bkcolor="#FFFF0000" bordercolor="#FF000000" bordersize="2">
         <HorizontalLayout name="caption" height="40" bkcolor="#FF000000">
-            <Label name="title" text="Feature" font="1" width="80" textcolor="#FFFFFFFF"/>
+            <Label name="title" text="Layered" font="1" width="80" textcolor="#FFFFFFFF"/>
             <Control />
             <Button name="close" width="80" text="关闭" textcolor="#FFFFFFFF"/>
         </HorizontalLayout>
-        <Container bkimage="image/main.png"/>
     </VerticalLayout>
 </Window>

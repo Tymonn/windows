@@ -48,6 +48,9 @@
     <ClInclude Include="define\msg_define.h">
       <Filter>define</Filter>
     </ClInclude>
+    <ClInclude Include="LayeredWindow.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -64,6 +67,9 @@
     </ClCompile>
     <ClCompile Include="menu\MenuUI.cpp">
       <Filter>menu</Filter>
+    </ClCompile>
+    <ClCompile Include="LayeredWindow.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

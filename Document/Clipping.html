@@ -53,6 +53,10 @@ GetParent会返回一个popup窗口的owner窗口（而不是所谓的父窗口�
 4.2.1 如果parent窗口本身不是子窗口，那么该popup窗口的owner窗口就是parent，也就是GetParent返回的窗口。<br/> 
 4.2.2 如果parent窗口本身也是子窗口，则系统从parent继续向上找parent的parent，直到找到一个非子窗口的parent，它就是popup窗口的owner窗口。<br/> <br/> 
 
+5、Layered Windows<br/>
+<a href="http://blog.csdn.net/JankyHu/article/details/5936401"><b>分层窗口</b></a><br/>
+<b>Note：Beginning with Windows 8, WS_EX_LAYERED can be used with child windows and top-level windows. Previous Windows versions support WS_EX_LAYERED only for top-level windows.</b><br/> 
+也就是说，在Windows7等系统中，WS_EX_LAYERED只能用于popup窗口中。<br/>
 </body>
 
 </html>

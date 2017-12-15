@@ -41,6 +41,18 @@ LRESULT CSubWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam) {
             int n = m;
             break;
         }
+        case WM_MOVE: {
+            if (id_ % 2 == 0) {
+                RECT rect = { 0 };
+                //²»ÊÇGetWindowRect
+                ::GetClientRect(m_hWnd, &rect);
+                //w and h are the width-height of the the rounded corner, which may be a ellipse
+                HRGN rgn = ::CreateRoundRectRgn(rect.left, rect.top, rect.right, rect.bottom, rect.right - rect.left, rect.bottom - rect.top);
+                ::SetWindowRgn(m_hWnd, rgn, TRUE);
+                ::DeleteObject(rgn);
+            }
+            break;
+        }
         default:
             break;
     }
