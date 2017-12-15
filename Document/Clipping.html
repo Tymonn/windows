@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Window Style -Clipping</title>
+</head>
+
+<body>
+<br/>
+<a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms632599(v=vs.85).aspx">Window Features(MSDN参考)</a><br/><br/>
+1、父子窗口不设置任何clipping风格<br/>
+<img src="image\clipping\noclipping.png" height="300" width="500" /><br/>
+父子窗口不设置任何Clipping风格的时候，拖动子窗口就会出现如上图的情况。子窗口被拖动后，其区域被父窗口刷掉。
+原因如下：<br/>
+The system does not automatically clip a child window from the parent window's client area. <br/>
+This means the parent window draws over the child window if it carries out any drawing in the same location as the child window.<br/>
+也就是说：父窗口不会自动裁剪子窗口，父窗口绘制的时候，会刷掉子窗口区域。 <br/>
+而拖动子窗口的时候，只有父窗口需要重绘。即，只有父窗口能收到WM_PAINT，子窗口不会收到WM_PAINT。<br/>
+所以会出现上面的情况：子窗口被父窗口的重绘刷掉，好像看不见了。<br/><br/>
+
+2、父窗口设置WS_CLIPCHILDREN<br/>
+<img src="image\clipping\clipchildren.png" height="300" width="500" /><br/>
+给父窗口设置WS_CLIPCHILDREN，拖动子窗口的时候，就不会出现上面的问题。原因如下：<br/>
+the system does clip the child window from the parent window's client area if the parent window has the WS_CLIPCHILDREN style. <br/>
+If the child window is clipped, the parent window cannot draw over it.<br/>
+也就是说，设置了WS_CLIPCHILDREN风格后，父窗口绘制的时候，不会覆盖子窗口的区域。<br/><br/>
+
+
+3、兄弟窗口的WS_CLIPSIBLINGS<br/>
+3.1 让非WS_CLIPSIBLINGS窗口重绘<br/>
+跟上面的原理大致相同，一个子窗口重绘的时候，可以直接在它的兄弟窗口（sibling windows）的客户区绘制。<br/>
+如下图，子窗口2设置了WS_CLIPSIBLINGS，而子窗口1没有设置WS_CLIPSIBLINGS。<br/>
+<img src="image\clipping\clipsibling_up.png" height="300" width="500" /><br/>
+拖动子窗口2，使子窗口1收到WM_PAINT消息，进行重绘。因为子窗口1会绘制兄弟窗口的客户区，结果如下图：<br/>
+<img src="image\clipping\clipsibling_up_redraw.png" height="300" width="500" /><br/><br/>
+3.2 让WS_CLIPSIBLINGS窗口重绘<br/>
+如下图，让子窗口1位于子窗口2的上方：<br/>
+<img src="image\clipping\nonclipsibling_up.png" height="300" width="500" /><br/>
+拖动子窗口1，让子窗口2重绘。子窗口2设置了WS_CLIPSIBLINGS风格，就不会绘制和其他兄弟窗口重合的部分。结果如下图：<br/>
+<img src="image\clipping\nonclipsibling_up_redraw.png" height="300" width="500" /><br/><br/>
+
+<b>性能：随意用子窗口，会导致轻微性能损耗。</b><br/> 
+If a window has either the WS_CLIPCHILDREN or WS_CLIPSIBLINGS style, a slight loss in performance occurs. <br/>
+Each window takes up system resources, so an application should not use child windows indiscriminately. For best performance, <br/> 
+an application that needs to logically divide its main window should do so in the window procedure of the main window rather than by using child windows.<br/> <br/> 
+
+4、Relationship to Parent Window<br/>
+4.1 可以通过SetParent改版一个子窗口的父窗口。注意： <br/> 
+In this case, the system removes the child window from the client area of the old parent window and moves it to the client area of the new parent window. <br/> 
+If SetParent specifies a NULL handle, the desktop window becomes the new parent window. <br/> 
+In this case, the child window is drawn on the desktop, outside the borders of any other window.<br/> <br/> 
+4.2 <b>Popup窗口的父窗口</b><br/> 
+GetParent会返回一个popup窗口的owner窗口（而不是所谓的父窗口），这个窗口不一定是创建该popup窗口时传进去的parent窗口。<br/> 
+4.2.1 如果parent窗口本身不是子窗口，那么该popup窗口的owner窗口就是parent，也就是GetParent返回的窗口。<br/> 
+4.2.2 如果parent窗口本身也是子窗口，则系统从parent继续向上找parent的parent，直到找到一个非子窗口的parent，它就是popup窗口的owner窗口。<br/> <br/> 
+
+</body>
+
+</html>

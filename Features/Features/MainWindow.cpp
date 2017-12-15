@@ -47,6 +47,10 @@ LRESULT CMainWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam) {
             }
         }
             break;
+        case WM_PAINT: {
+            int m = 0;
+            break;
+        }
         case WM_CREATE_SUBWND: {
             POINT pt = { 0 };
             ::GetCursorPos(&pt);
@@ -55,9 +59,11 @@ LRESULT CMainWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam) {
             pt.x -= rect.left;
             pt.y -= rect.top;
 
-            CSubWindow *sub = new CSubWindow;
+            static int id = 0;
+            ++id;
+            CSubWindow *sub = new CSubWindow(id);
             subs_.push_back(sub);
-            sub->Create(m_hWnd, L"Feature Sub", WS_CHILD , 0);
+            sub->Create(m_hWnd, L"Feature Sub", id % 2 == 1 ? WS_CHILD : WS_CHILD| WS_CLIPSIBLINGS, 0);
             ::SetWindowPos(sub->GetHWND(), NULL, pt.x, pt.y, 0, 0, SWP_NOSIZE | SWP_SHOWWINDOW);
         }
             break;

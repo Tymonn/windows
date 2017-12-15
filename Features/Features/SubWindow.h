@@ -6,7 +6,7 @@ using namespace DuiLib;
 class CSubWindow : public CWindowWnd
 {
 public:
-    CSubWindow();
+    CSubWindow(int id);
     ~CSubWindow();
 
 protected:
@@ -23,5 +23,6 @@ private:
     CButtonUI *close_ = nullptr;
     CHorizontalLayoutUI *caption_ = nullptr;
     CLabelUI* title_ = nullptr;
+    int id_ = 0;
 };
 

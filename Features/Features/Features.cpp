@@ -49,7 +49,7 @@ BOOL InitApp(int nCmdShow) {
     CPaintManagerUI::SetResourcePath(path.c_str());
 
     // 创建主窗口
-    theMain.Create(NULL, L"Features", WS_POPUP, 0);
+    theMain.Create(NULL, L"Features", WS_POPUP | WS_CLIPCHILDREN , 0);
     HWND hWnd = theMain.GetHWND();
     if (!hWnd) {
         return FALSE;

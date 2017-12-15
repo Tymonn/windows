@@ -1,9 +1,11 @@
 #include "stdafx.h"
 #include "SubWindow.h"
+#include <sstream>
 
 
-CSubWindow::CSubWindow()
+CSubWindow::CSubWindow(int id)
 {
+    id_ = id;
 }
 
 
@@ -35,7 +37,9 @@ LRESULT CSubWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam) {
         }
             break;
         case WM_PAINT: {
-            int m = 0;
+            int m = id_;
+            int n = m;
+            break;
         }
         default:
             break;
@@ -104,6 +108,11 @@ void CSubWindow::FindSubCtrls() {
 
     caption_ = static_cast<CHorizontalLayoutUI*>(pntm_.FindControl(L"caption"));
     title_ = static_cast<CLabelUI*>(pntm_.FindControl(L"title"));
+    if (title_) {
+        std::wstringstream stream;
+        stream << L"Sub:" << id_;
+        title_->SetText(stream.str().c_str());
+    }
 }
 
 bool CSubWindow::OnCloseClicked(void *param) {
