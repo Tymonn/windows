@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window size="200,300" caption="0,0,0,0">
+    <Font id="0" name="微软雅黑" size="12" />
+    <Font id="1" name="微软雅黑" size="18" italic="true"/>
+    <VerticalLayout bkcolor="#FFFFFFFF" bordercolor="#FF000000" bordersize="2">
+        <HorizontalLayout name="caption" height="30" bkcolor="#FF000000">
+            <Label name="title" text="Transparent" font="1" width="120" textcolor="#FFFFFFFF"/>
+            <Control />
+            <Button name="close" width="40" text="关闭" textcolor="#FFFFFFFF"/>
+        </HorizontalLayout>
+        <Label text="点击下方区域" align="center" height="20" font="0" textcolor="#FF333333"/>
+        <Label text="并拖动鼠标到任一窗口" align="center" height="20" font="0" textcolor="#FF333333"/>
+        <Control />
+        <HorizontalLayout height="30">
+            <CheckBox name="reset" text22="退出的时候恢复所有" width="30" height="30" bkcolor="#FFFF0000"/>
+        </HorizontalLayout>
+    </VerticalLayout>
+</Window>

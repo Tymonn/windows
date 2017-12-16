@@ -1,8 +1,5 @@
 #pragma once
 #include "../../Dui/UIlib.h"
-#include "menu/MenuUI.h"
-#include "SubWindow.h"
-#include "LayeredWindow.h"
 using namespace DuiLib;
 
 class CMainWindow : public CWindowWnd
@@ -18,16 +15,14 @@ protected:
 private:
     LRESULT OnCreate(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &handled);
     LRESULT OnNcHitTest(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &handled);
-    LRESULT OnRButtonUp(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &handled);
-
+    LRESULT OnLButtonDown(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &handled);
+    LRESULT OnLButtonUp(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &handled);
+    LRESULT OnMove(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &handled);
     void FindSubCtrls();
     bool OnCloseClicked(void *param);
 
-    CMenuUI menu_;
     CPaintManagerUI pntm_;
     CButtonUI *close_ = nullptr;
     CHorizontalLayoutUI *caption_ = nullptr;
-    std::vector<CSubWindow*> subs_;
-    std::vector<CLayeredWindow*> layers_;
 };
 
