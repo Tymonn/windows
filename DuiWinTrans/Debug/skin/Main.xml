@@ -11,8 +11,28 @@
         <Label text="点击下方区域" align="center" height="20" font="0" textcolor="#FF333333"/>
         <Label text="并拖动鼠标到任一窗口" align="center" height="20" font="0" textcolor="#FF333333"/>
         <Control />
-        <HorizontalLayout height="30">
-            <CheckBox name="reset" text22="退出的时候恢复所有" width="30" height="30" bkcolor="#FFFF0000"/>
+        <HorizontalLayout height="14">
+            <Label padding="15,0,0,0" width="55" text="不透明度：" align="left" />
+            <Slider name="opacity" width="110" min="0" max="255" thumbsize="11,10" bkimage="slider.png" thumbimage="slider_sel.png"/>
         </HorizontalLayout>
+        <HorizontalLayout height="14">
+            <Label padding="15,0,0,0" width="55" text="窗口句柄：" align="left" />
+            <Label name="wnd_handle" text="NULL" align="left" textpadding="5,0,0,0"/>
+        </HorizontalLayout>
+        <HorizontalLayout height="14">
+            <Label padding="15,0,0,0" width="55" text="窗口标题：" align="left" />
+            <Label name="wnd_caption" text="NULL" align="left" textpadding="5,0,0,0"/>
+        </HorizontalLayout>
+        <Control height="30" />
+        <HorizontalLayout height="14">
+            <CheckBox name="reset" padding="40,0,0,0" width="14" height="14" bordersize="1" bordercolor="#FF999999"
+                      normalimage="file='checkbox.png' source='42,0,56,14' dest='0,0,14,14'"
+                      normalimage2="checkbox.png"
+                      selectedimage="file='checkbox.png' source='0,0,14,14' dest='0,0,14,14'"
+                      >                      
+            </CheckBox>
+            <Label text="退出的时候恢复所有" align="left" textpadding="5,0,0,0"/>
+        </HorizontalLayout>
+        <Control height="50"/>
     </VerticalLayout>
 </Window>
