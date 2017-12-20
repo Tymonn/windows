@@ -26,6 +26,7 @@ private:
     void SetWindowOpacity(HWND wnd, BYTE opacity);
     void CancelWindowOpacity(HWND wnd);
 
+    HCURSOR cursor_ = NULL;
     bool tracking_ = false;
     short opacity_value_ = 100;
     HWND wnd_under_cursor_ = NULL;

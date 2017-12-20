@@ -85,6 +85,8 @@ LRESULT CMainWindow::OnCreate(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &han
     if (root) {
         pntm_.AttachDialog(root);
         FindSubCtrls();
+
+        cursor_ = ::LoadCursorFromFile(L"skin\\mouse.cur");
     }
 
     return 0;
@@ -152,6 +154,9 @@ LRESULT CMainWindow::OnLButtonDown(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL
             //The system sends the mouse message to the window that contains the hot spot 
             //or to the window that is capturing mouse input
             ::SetCapture(m_hWnd);
+            if (cursor_) {
+                ::SetCursor(cursor_);
+            }            
             tracking_ = true;
         }
     }
