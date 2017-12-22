@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "MainWindow.h"
 #include <sstream>
+#include "..\Res\res\resource.h"
 
 CMainWindow::CMainWindow()
 {
@@ -86,7 +87,11 @@ LRESULT CMainWindow::OnCreate(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &han
         pntm_.AttachDialog(root);
         FindSubCtrls();
 
-        cursor_ = ::LoadCursorFromFile(L"skin\\mouse.cur");
+        //cursor_ = ::LoadCursorFromFile(L"skin\\mouse.cur");
+        HMODULE res = ::LoadLibrary(L"res.dll");
+        if (res) {
+            cursor_ = ::LoadCursor(res,MAKEINTRESOURCE(IDC_CURSOR_GUN));
+        }
     }
 
     return 0;
@@ -153,8 +158,13 @@ LRESULT CMainWindow::OnLButtonDown(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL
         if (class_name != DUI_CTR_SLIDER && class_name != DUI_CTR_CHECKBOX) {
             //The system sends the mouse message to the window that contains the hot spot 
             //or to the window that is capturing mouse input
-            ::SetCapture(m_hWnd);
+            //duilib has done setting and releasing capture
+            //::SetCapture(m_hWnd);
             if (cursor_) {
+                //WM_SETCURSOR is sent to a window if the mouse causes the cursor to move within a window 
+                //and mouse input is not captured.
+                //therefore the cursor would be reset after WM_LBUTTONUP, 
+                //because we ReleaseCapture(the system will handle the WM_SETCURSOR later)
                 ::SetCursor(cursor_);
             }            
             tracking_ = true;
@@ -166,7 +176,7 @@ LRESULT CMainWindow::OnLButtonDown(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL
 
 LRESULT CMainWindow::OnLButtonUp(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &handled) {
     handled = FALSE;
-    ::ReleaseCapture();
+    //::ReleaseCapture();
     tracking_ = false;
 
     if (wnd_under_cursor_ != m_hWnd) {
